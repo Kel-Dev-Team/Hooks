@@ -6,7 +6,7 @@
  *
  * This content is released under the MIT License (MIT)
  *
- * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
+ * Copyright (c) 2018, Kel Dev Team (http://dev.kingchionline.com/)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -39,6 +39,7 @@ use Kel\MissingHook;
 use Kel\Load;
 use Kel\InvalidHook;
 use Kel\UnknownHook;
+use Kel\MissingConfig;
 
 /**
  * Hooks Class
@@ -56,7 +57,8 @@ class Hooks
 	 * @var array
 	 */
     protected $config = [
-        'hooks_dir' => __DIR__.'/../hooks'
+        'hooks_dir' => __DIR__.'/../hooks',
+        'accepted_hooks' => false
     ];
 
     /**
@@ -64,6 +66,30 @@ class Hooks
      * @var array
      */
     protected $hooks = [];
+
+    /**
+     * An array of accepted hooks. Default of false
+     * @var mixed
+     */
+    protected $accepted = false;
+
+    /**
+     * The constructor
+     * @param array $config An array of configuration options
+     */
+    public function __construct($config = [])
+    {
+    	if (is_array($config) && !empty($config)) {
+    		$this->config = array_merge($this->config, $config);
+    		$required_options = ['hooks_dir'];
+    		foreach ($required_options as $option) {
+    			if (!in_array($option, $this->config)) {
+    				throw new MissingConfig("The configuration option $option was not set!", 1);
+    				
+    			}
+    		}
+    	}
+    }
 
     /**
      * Add a hook to the system
@@ -80,6 +106,19 @@ class Hooks
         } else {
             throw new MissingHook("The hook @ $path was not found!", 1);
         }
+    }
+
+    /**
+     * Check if a particlar hook is accepted by the system
+     * @param  string  $hook_name The name of the hook to be checked
+     * @return boolean            
+     */
+    protected function is_accepted($hook_name = '')
+    {
+    	if ($this->accepted == false) {
+    		return true;
+    	}
+    	return in_array($hook_name, $this->accepted);
     }
 
     /**

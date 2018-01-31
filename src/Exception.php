@@ -6,7 +6,7 @@
  *
  * This content is released under the MIT License (MIT)
  *
- * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
+ * Copyright (c) 2018, Kel Dev Team (http://dev.kingchionline.com/)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -45,5 +45,8 @@ class UnknownHook extends \Exception
 {
 }
 class InvalidHook extends \Exception
+{
+}
+class MissingConfig extends \Exception
 {
 }
