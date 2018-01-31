@@ -35,11 +35,12 @@
  */
 namespace Kel;
 
-use Kel\MissingHook;
+use Kel\Exceptions\MissingHook;
 use Kel\Load;
-use Kel\InvalidHook;
-use Kel\UnknownHook;
-use Kel\MissingConfig;
+use Kel\Exceptions\InvalidHook;
+use Kel\Exceptions\UnknownHook;
+use Kel\Exceptions\MissingConfig;
+use Kel\Exceptions\UnacceptedHook;
 
 /**
  * Hooks Class
@@ -83,7 +84,7 @@ class Hooks
             $this->config = array_merge($this->config, $config);
             $required_options = ['hooks_dir'];
             foreach ($required_options as $option) {
-                if (!in_array($option, $this->config)) {
+                if (!isset($this->config[$option])) {
                     throw new MissingConfig("The configuration option $option was not set!", 1);
                 }
             }
@@ -101,7 +102,11 @@ class Hooks
     {
         $hooks_dir = realpath($this->config['hooks_dir']);
         if (file_exists($hooks_dir.'/'.$path)) {
-            $this->hooks[$hook][] = $path;
+            if ($this->is_accepted($hook)) {
+                $this->hooks[$hook][] = $path;
+            } else {
+                throw new UnacceptedHook("The hook $hook is not accepted!", 1);
+            }
         } else {
             throw new MissingHook("The hook @ $path was not found!", 1);
         }
@@ -131,9 +136,9 @@ class Hooks
         if (array_key_exists($hook, $this->hooks)) {
             if (is_array($this->hooks[$hook]) && !empty($this->hooks[$hook])) {
                 foreach ($this->hooks[$hook] as $hook_file) {
-                    $hook = Load::hook($hooks_dir.'/'.$hook_file);
-                    if (is_callable($hook)) {
-                        $hook();
+                    $hook_code = Load::hook($hooks_dir.'/'.$hook_file);
+                    if (is_callable($hook_code)) {
+                        $hook_code($hook);
                     } else {
                         throw new InvalidHook("The hook @ $hook_file could not be called!", 1);
                     }

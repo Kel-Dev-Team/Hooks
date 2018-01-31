@@ -33,7 +33,7 @@
  * @since	Version 1.0.0
  * @filesource
  */
-namespace Kel;
+namespace Kel\Exceptions;
 
 class MissingHook extends \Exception
 {
@@ -48,5 +48,8 @@ class InvalidHook extends \Exception
 {
 }
 class MissingConfig extends \Exception
+{
+}
+class UnacceptedHook extends \Exception
 {
 }

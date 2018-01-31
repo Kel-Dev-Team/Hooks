@@ -35,8 +35,8 @@
  */
 namespace Kel;
 
-use Kel\MissingHook;
-use Kel\MissingConfigFile;
+use Kel\Exceptions\MissingHook;
+use Kel\Exceptions\MissingConfigFile;
 
 /**
  * The load class
