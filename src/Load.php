@@ -43,11 +43,11 @@ use Kel\MissingConfigFile;
  */
 class Load
 {
-	/**
-	 * load a config file
-	 * @param  string $path the path to the file to be loaded
-	 * @return mixed       
-	 */
+    /**
+     * load a config file
+     * @param  string $path the path to the file to be loaded
+     * @return mixed
+     */
     public static function config($path='')
     {
         if (file_exists($path)) {

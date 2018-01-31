@@ -52,10 +52,10 @@ use Kel\MissingConfig;
  */
 class Hooks
 {
-	/**
-	 * An array of config values
-	 * @var array
-	 */
+    /**
+     * An array of config values
+     * @var array
+     */
     protected $config = [
         'hooks_dir' => __DIR__.'/../hooks',
         'accepted_hooks' => false
@@ -79,16 +79,15 @@ class Hooks
      */
     public function __construct($config = [])
     {
-    	if (is_array($config) && !empty($config)) {
-    		$this->config = array_merge($this->config, $config);
-    		$required_options = ['hooks_dir'];
-    		foreach ($required_options as $option) {
-    			if (!in_array($option, $this->config)) {
-    				throw new MissingConfig("The configuration option $option was not set!", 1);
-    				
-    			}
-    		}
-    	}
+        if (is_array($config) && !empty($config)) {
+            $this->config = array_merge($this->config, $config);
+            $required_options = ['hooks_dir'];
+            foreach ($required_options as $option) {
+                if (!in_array($option, $this->config)) {
+                    throw new MissingConfig("The configuration option $option was not set!", 1);
+                }
+            }
+        }
     }
 
     /**
@@ -111,20 +110,20 @@ class Hooks
     /**
      * Check if a particlar hook is accepted by the system
      * @param  string  $hook_name The name of the hook to be checked
-     * @return boolean            
+     * @return boolean
      */
     protected function is_accepted($hook_name = '')
     {
-    	if ($this->accepted == false) {
-    		return true;
-    	}
-    	return in_array($hook_name, $this->accepted);
+        if ($this->accepted == false) {
+            return true;
+        }
+        return in_array($hook_name, $this->accepted);
     }
 
     /**
      * run all the hooks attached to a hook point
      * @param  string $hook the name of the hook point to run
-     * @return 
+     * @return
      */
     public function run_hook($hook='')
     {
