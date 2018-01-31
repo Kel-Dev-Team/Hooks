@@ -1,5 +1,5 @@
 # Hooks
-A simple php framework for adding hooks to a system.
+A simple php framework for adding runtime hooks to a system.
 
 **installation**
 

@@ -2,7 +2,7 @@
 /**
  * Hooks
  *
- * A framework for adding hooks to a system.
+ * A simple php framework for adding runtime hooks to a system.
  *
  * This content is released under the MIT License (MIT)
  *

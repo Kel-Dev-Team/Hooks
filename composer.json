@@ -1,6 +1,6 @@
 {
     "name": "kel/hooks",
-    "description": "A framework for adding hooks to a system.",
+    "description": "A simple php framework for adding runtime hooks to a system.",
     "type": "library",
     "license": "MIT",
     "minimum-stability": "stable",
