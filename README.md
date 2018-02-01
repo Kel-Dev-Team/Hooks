@@ -10,6 +10,9 @@ $ composer require kel/hooks
 **example**
 
 ```php
+use Kel\Load;
+use Kel\Hooks;
+
 //create a new Hooks instance 
 //passing an array of config options is optional
 $hook = new  Hooks(Load::config(__DIR__.'/config.php'));
