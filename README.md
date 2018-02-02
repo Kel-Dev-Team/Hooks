@@ -15,6 +15,7 @@ use Kel\Hooks;
 
 //create a new Hooks instance 
 //passing an array of config options is optional
+//__NB: Multiple hooks can be added to the same hook point__
 $hook = new  Hooks(Load::config(__DIR__.'/config.php'));
 
 //add a hook init.php to the hook point init
@@ -30,3 +31,4 @@ $hook->run_hook('init');
 //run the hook final
 $hook->run_hook('final');
 ```
+
